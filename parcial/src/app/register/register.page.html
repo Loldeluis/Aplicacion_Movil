@@ -1,31 +1,62 @@
 <ion-header [translucent]="true">
-  <ion-toolbar>
+  <ion-toolbar color="primary">
     <ion-title>Registro</ion-title>
   </ion-toolbar>
 </ion-header>
 
 
 <ion-content class="ion-padding">
-<ion-item>
+
+  <!-- Usuario -->
+  <ion-item>
     <ion-label position="floating">Usuario</ion-label>
     <ion-input [(ngModel)]="username"></ion-input>
   </ion-item>
 
+  <!-- Apellido -->
+  <ion-item>
+    <ion-label position="floating">Apellido</ion-label>
+    <ion-input [(ngModel)]="lastname"></ion-input>
+  </ion-item>
+
+  <!-- Correo Gmail -->
+  <ion-item>
+    <ion-label position="floating">Correo Gmail</ion-label>
+    <ion-input [(ngModel)]="email" type="email"></ion-input>
+  </ion-item>
+
+  <!-- País con bandera -->
+  <ion-item>
+    <ion-label>País</ion-label>
+    <ion-select [(ngModel)]="country">
+      <ion-select-option *ngFor="let c of countries" [value]="c.name">
+        {{ c.unicodeFlag }} {{ c.name }}
+      </ion-select-option>
+    </ion-select>
+  </ion-item>
+
+  <!-- Contraseña -->
   <ion-item>
     <ion-label position="floating">Contraseña</ion-label>
     <ion-input type="password" [(ngModel)]="password"></ion-input>
   </ion-item>
 
-  <!-- Botón deshabilitado si falta usuario o contraseña -->
+  <!-- Confirmar Contraseña -->
+  <ion-item>
+    <ion-label position="floating">Confirmar Contraseña</ion-label>
+    <ion-input type="password" [(ngModel)]="confirmPassword"></ion-input>
+  </ion-item>
+
+  <!-- Botón -->
   <ion-button 
     expand="block" 
     (click)="register()" 
-    [disabled]="!username || !password">
+    [disabled]="!isFormValid()">
     Registrar
   </ion-button>
 
   <ion-button expand="block" color="secondary" routerLink="/home">
     Volver al Login
   </ion-button>
-    
+
 </ion-content>
