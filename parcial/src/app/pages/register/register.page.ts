@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { v4 as uuidv4 } from 'uuid';
+import * as CryptoJS from 'crypto-js';
 import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
 import { HttpClient } from '@angular/common/http';
@@ -13,7 +15,7 @@ export class RegisterPage implements OnInit {
   username: string = '';
   lastname: string = '';
   email: string = '';
-  country: string = '';
+  country: any = '';
   password: string = '';
   confirmPassword: string = '';
   countries: any[] = [];
@@ -66,8 +68,13 @@ export class RegisterPage implements OnInit {
     for (let i = 0; i < localStorage.length; i++) {
       const key = localStorage.key(i);
       if (!key) continue;
-      const userData = JSON.parse(localStorage.getItem(key)!);
-      if (userData.email === this.email) {
+      let userData;
+      try {
+        userData = JSON.parse(localStorage.getItem(key)!);
+      } catch {
+        continue; // Si no es JSON válido, ignora esta clave
+      }
+      if (userData && userData.email === this.email) {
         emailExists = true;
         break;
       }
@@ -77,12 +84,19 @@ export class RegisterPage implements OnInit {
       return;
     }
 
+
+    // Buscar el país seleccionado en el array de países
+    const selectedCountry = this.countries.find(c => c.name === this.country);
+
     const userData = {
-      username: this.username,
-      lastname: this.lastname,
+      id: uuidv4(),
+      name: this.username,
+      lastName: this.lastname,
       email: this.email,
-      country: this.country,
-      password: this.password
+      password: CryptoJS.SHA256(this.password).toString(CryptoJS.enc.Hex),
+      country: selectedCountry
+        ? { id: selectedCountry.name, value: `${selectedCountry.unicodeFlag} ${selectedCountry.name}` }
+        : { id: this.country, value: this.country }
     };
 
     // Guardar usando el email como clave
