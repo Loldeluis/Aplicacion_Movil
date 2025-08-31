@@ -1,0 +1,21 @@
+.row-fields {
+  display: flex;
+  gap: 12px;
+}
+
+.input-box {
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+  margin-bottom: 16px;
+  flex: 1;
+}
+
+.flag {
+  font-size: 1.2em;
+  margin-right: 8px;
+}
+
+.eye-icon {
+  font-size: 1.3em;
+  cursor: pointer;
+}
