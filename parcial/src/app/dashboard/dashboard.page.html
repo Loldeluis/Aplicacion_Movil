@@ -10,4 +10,11 @@
       <ion-title size="large">dashboard</ion-title>
     </ion-toolbar>
   </ion-header>
+
+  <div style="display: flex; justify-content: flex-end; margin: 16px;">
+    <ion-button color="danger" (click)="logout()">
+      <ion-icon name="log-out-outline" slot="start"></ion-icon>
+      Cerrar sesión
+    </ion-button>
+  </div>
 </ion-content>
