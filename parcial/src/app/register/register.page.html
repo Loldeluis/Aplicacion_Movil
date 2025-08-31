@@ -1,53 +1,44 @@
-<ion-header [translucent]="true">
-  <ion-toolbar color="primary">
-    <ion-title>Registro</ion-title>
-  </ion-toolbar>
-</ion-header>
-
-
 <ion-content class="ion-padding">
 
-  <!-- Usuario -->
-  <ion-item>
-    <ion-label position="floating">Name</ion-label>
-    <ion-input [(ngModel)]="username" placeholder="Jae"></ion-input>
-  </ion-item>
 
-  <!-- Apellido -->
-  <ion-item>
-    <ion-label position="floating">Last Name</ion-label>
-    <ion-input [(ngModel)]="lastname" placeholder="Dae"></ion-input>
-  </ion-item>
+  <div class="row-fields">
+    <ion-item class="input-box">
+      <ion-label position="floating">Name</ion-label>
+      <ion-input [(ngModel)]="username" placeholder="Jae"></ion-input>
+    </ion-item>
+    <ion-item class="input-box">
+      <ion-label position="floating">Last Name</ion-label>
+      <ion-input [(ngModel)]="lastname" placeholder="Dae"></ion-input>
+    </ion-item>
+  </div>
 
-  <!-- Correo Gmail -->
-  <ion-item>
-    <ion-label position="floating">Gmail</ion-label>
-    <ion-input [(ngModel)]="email" type="email" placeholder="jane@gmail.com"></ion-input>
-  </ion-item>
-
-  <!-- País con bandera -->
-  <ion-item>
+  <ion-item class="input-box">
     <ion-label>Country</ion-label>
-    <ion-select [(ngModel)]="country">
+    <ion-select [(ngModel)]="country" interface="popover" placeholder="Select country">
       <ion-select-option *ngFor="let c of countries" [value]="c.name">
-        {{ c.unicodeFlag }} {{ c.name }}
+        <span class="flag">{{ c.unicodeFlag }}</span> {{ c.name }}
       </ion-select-option>
     </ion-select>
   </ion-item>
 
-  <!-- Contraseña -->
-  <ion-item>
+  <ion-item class="input-box">
+    <ion-label position="floating">Gmail</ion-label>
+    <ion-input [(ngModel)]="email" type="email" placeholder="jane@gmail.com"></ion-input>
+  </ion-item>
+
+  <ion-item class="input-box">
     <ion-label position="floating">Password</ion-label>
-    <ion-input type="password" [(ngModel)]="password" placeholder="********"></ion-input>
+    <ion-input [type]="showPassword ? 'text' : 'password'" [(ngModel)]="password" placeholder="********"></ion-input>
+    <ion-icon slot="end" [name]="showPassword ? 'eye-off' : 'eye'" (click)="showPassword = !showPassword" class="eye-icon"></ion-icon>
   </ion-item>
 
-  <!-- Confirmar Contraseña -->
-  <ion-item>
+  <ion-item class="input-box">
     <ion-label position="floating">Confirm password</ion-label>
-    <ion-input type="password" [(ngModel)]="confirmPassword" placeholder="********" ></ion-input>
+    <ion-input [type]="showConfirmPassword ? 'text' : 'password'" [(ngModel)]="confirmPassword" placeholder="********"></ion-input>
+    <ion-icon slot="end" [name]="showConfirmPassword ? 'eye-off' : 'eye'" (click)="showConfirmPassword = !showConfirmPassword" class="eye-icon"></ion-icon>
   </ion-item>
 
-  <!-- Botón -->
+
   <ion-button 
     expand="block" 
     (click)="register()" 
@@ -58,5 +49,44 @@
   <ion-button expand="block" color="secondary" routerLink="/home">
     Volver al Login
   </ion-button>
+<style>
+  .row-fields {
+  display: flex;
+  gap: 12px;
+}
+.input-box {
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+  margin-bottom: 16px;
+  flex: 1;
+}
+.flag {
+  font-size: 1.2em;
+  margin-right: 8px;
+}
+.eye-icon {
+  font-size: 1.3em;
+  cursor: pointer;
+}
+
+.row-fields {
+  display: flex;
+  gap: 12px;
+}
+.input-box {
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+  margin-bottom: 16px;
+  flex: 1;
+}
+.flag {
+  font-size: 1.2em;
+  margin-right: 8px;
+}
+.eye-icon {
+  font-size: 1.3em;
+  cursor: pointer;
+}
+</style>
 
 </ion-content>

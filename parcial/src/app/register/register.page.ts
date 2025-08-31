@@ -17,6 +17,8 @@ export class RegisterPage implements OnInit {
   password: string = '';
   confirmPassword: string = '';
   countries: any[] = [];
+  showPassword: boolean = false;
+  showConfirmPassword: boolean = false;
 
   constructor(
     private router: Router,
