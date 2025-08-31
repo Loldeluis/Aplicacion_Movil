@@ -5,29 +5,32 @@
 </ion-header>
 
 <ion-content class="ion-padding">
+  <div class="login-image-container">
+  <img src="/assets/icon/hulk.jpeg" alt="Hulk icon" class="login-image" />
+  </div>
+  <div class="login-form-container">
+    <ion-item>
+      <ion-label position="floating">Correo</ion-label>
+      <ion-input type="email" [(ngModel)]="email" placeholder="Ingresa tu correo"></ion-input>
+    </ion-item>
 
-  <ion-item>
-    <ion-label position="floating">Correo</ion-label>
-    <ion-input type="email" [(ngModel)]="email" placeholder="Ingresa tu correo"></ion-input>
-  </ion-item>
+    <ion-item>
+      <ion-label position="floating">Contraseña</ion-label>
+      <ion-input type="password" [(ngModel)]="password" placeholder="*********"></ion-input>
+    </ion-item>
 
-  <ion-item>
-    <ion-label position="floating">Contraseña</ion-label>
-    <ion-input type="password" [(ngModel)]="password" placeholder="*********"></ion-input>
-  </ion-item>
+    <p class="register-link">
+      ¿No tienes una cuenta?
+      <a routerLink="/register">Regístrate aquí</a>
+    </p>
 
-
-    <p>
-    ¿No tienes una cuenta?
-    <a routerLink="/register">Regístrate aquí</a>
-  </p>
-
-  <ion-button 
-    expand="block" 
-    (click)="login()" 
-    [disabled]="!email || !password">
-    Iniciar Sesión
-  </ion-button>
-
-
+    <ion-button 
+      expand="block" 
+      (click)="login()" 
+      [disabled]="!email || !password"
+      class="login-btn">
+      <ion-icon name="log-in-outline" slot="start"></ion-icon>
+      Iniciar Sesión
+    </ion-button>
+  </div>
 </ion-content>
