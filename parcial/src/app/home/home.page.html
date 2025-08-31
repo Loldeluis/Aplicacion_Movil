@@ -5,21 +5,23 @@
 </ion-header>
 
 <ion-content class="ion-padding">
+
   <ion-item>
-    <ion-label position="floating">Usuario</ion-label>
-    <ion-input [(ngModel)]="username"></ion-input>
+    <ion-label position="floating">Correo</ion-label>
+    <ion-input type="email" [(ngModel)]="email" placeholder="Ingresa tu correo"></ion-input>
   </ion-item>
 
   <ion-item>
     <ion-label position="floating">Contraseña</ion-label>
-    <ion-input type="password" [(ngModel)]="password"></ion-input>
+    <ion-input type="password" [(ngModel)]="password" placeholder="*********"></ion-input>
   </ion-item>
 
   <!-- Botón deshabilitado si falta usuario o contraseña -->
+
   <ion-button 
     expand="block" 
     (click)="login()" 
-    [disabled]="!username || !password">
+    [disabled]="!email || !password">
     Iniciar Sesión
   </ion-button>
 

@@ -52,18 +52,30 @@ export class RegisterPage implements OnInit {
   }
 
 
+
   async register() {
     if (!this.isFormValid()) {
       this.showAlert('Error', 'Por favor completa correctamente todos los campos.');
       return;
     }
 
-  if (localStorage.getItem(this.username)) {
-      this.showAlert('Error', 'El usuario ya existe');
+    // Validar que no exista un usuario con el mismo email
+    let emailExists = false;
+    for (let i = 0; i < localStorage.length; i++) {
+      const key = localStorage.key(i);
+      if (!key) continue;
+      const userData = JSON.parse(localStorage.getItem(key)!);
+      if (userData.email === this.email) {
+        emailExists = true;
+        break;
+      }
+    }
+    if (emailExists) {
+      this.showAlert('Error', 'Ya existe un usuario con ese correo');
       return;
     }
 
-  const userData = {
+    const userData = {
       username: this.username,
       lastname: this.lastname,
       email: this.email,
@@ -71,7 +83,8 @@ export class RegisterPage implements OnInit {
       password: this.password
     };
 
-   localStorage.setItem(this.username, JSON.stringify(userData));
+    // Guardar usando el email como clave
+    localStorage.setItem(this.email, JSON.stringify(userData));
     this.showAlert('Éxito', 'Usuario registrado correctamente');
     this.router.navigate(['/home']);
   }

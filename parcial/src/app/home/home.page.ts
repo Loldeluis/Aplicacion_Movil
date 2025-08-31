@@ -9,29 +9,35 @@ import {AlertController } from '@ionic/angular';
   standalone: false
 })
 export class HomePage {
-
-  username: string = '';
+  email: string = '';
   password: string = '';
 
   constructor(private router: Router, private alertCtrl: AlertController) {}
- 
-   async login() {
-    const storedUser = localStorage.getItem(this.username);
 
-    if (!storedUser) {
-      this.showAlert('Error', 'Usuario no encontrado');
+  async login() {
+    // Buscar usuario por email en localStorage
+    let foundUser = null;
+    for (let i = 0; i < localStorage.length; i++) {
+      const key = localStorage.key(i);
+      if (!key) continue;
+      const userData = JSON.parse(localStorage.getItem(key)!);
+      if (userData.email === this.email) {
+        foundUser = userData;
+        break;
+      }
+    }
+
+    if (!foundUser) {
+      this.showAlert('Error', 'Correo no encontrado');
       return;
     }
 
-      const userData = JSON.parse(storedUser);
-
-    if (userData.password === this.password) {
+    if (foundUser.password === this.password) {
       this.router.navigate(['/dashboard']);
     } else {
       this.showAlert('Error', 'Contraseña incorrecta');
     }
   }
-
 
   async showAlert(header: string, message: string) {
     const alert = await this.alertCtrl.create({
@@ -41,9 +47,6 @@ export class HomePage {
     });
     await alert.present();
   }
-
-
-
 
 
 }
