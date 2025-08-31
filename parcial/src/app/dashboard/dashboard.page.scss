@@ -1,0 +1,27 @@
+.center-title {
+	text-align: center;
+	width: 100%;
+}
+
+.profile-card {
+	position: absolute;
+	top: 60px;
+	right: 16px;
+	z-index: 1000;
+	width: 320px;
+	max-width: 90vw;
+	animation: fadeIn 0.2s;
+}
+
+@keyframes fadeIn {
+	from { opacity: 0; transform: translateY(-10px); }
+	to { opacity: 1; transform: translateY(0); }
+}
+
+ion-list-header {
+	font-weight: bold;
+	font-size: 1.1em;
+}
+ion-item[color="primary"] {
+	background: #e0e7ff;
+}

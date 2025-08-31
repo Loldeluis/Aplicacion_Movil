@@ -12,16 +12,47 @@ export class DashboardPage implements OnInit {
   news: any[] = [];
   loading = true;
   error = '';
+  showProfile = false;
+  categories = [
+    { key: 'tesla', label: 'Tesla' },
+    { key: 'technology', label: 'Tecnología' },
+    { key: 'sports', label: 'Deportes' },
+    { key: 'business', label: 'Negocios' },
+    { key: 'science', label: 'Ciencia' },
+    { key: 'health', label: 'Salud' },
+    { key: 'entertainment', label: 'Entretenimiento' }
+  ];
+  selectedCategory = this.categories[0].key;
+  user: any = { username: '', lastname: '' };
 
   constructor(private authService: AuthService, private http: HttpClient) { }
 
   ngOnInit() {
+    this.loadUser();
     this.fetchNews();
+  }
+
+  loadUser() {
+    const email = this.authService.getLoggedUserEmail();
+    if (email) {
+      for (let i = 0; i < localStorage.length; i++) {
+        const key = localStorage.key(i);
+        if (!key) continue;
+        const userData = JSON.parse(localStorage.getItem(key)!);
+        if (userData.email === email) {
+          this.user = userData;
+          break;
+        }
+      }
+    }
   }
 
   fetchNews() {
     this.loading = true;
-    this.http.get<any>('https://newsapi.org/v2/everything?q=tesla&from=2025-07-31&sortBy=publishedAt&apiKey=4e933b43792842b6be7c199ab7a2352d')
+    this.news = [];
+    this.error = '';
+    const url = `https://newsapi.org/v2/everything?q=${this.selectedCategory}&from=2025-07-31&sortBy=publishedAt&apiKey=4e933b43792842b6be7c199ab7a2352d`;
+    this.http.get<any>(url)
       .subscribe({
         next: res => {
           this.news = res.articles || [];
@@ -32,6 +63,12 @@ export class DashboardPage implements OnInit {
           this.loading = false;
         }
       });
+  }
+
+  selectCategory(cat: string) {
+    this.selectedCategory = cat;
+    this.fetchNews();
+    this.showProfile = false;
   }
 
   logout() {
