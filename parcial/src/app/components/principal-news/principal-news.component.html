@@ -1,0 +1,5 @@
+<div class="principal-news">
+  <h1>{{ news?.title }}</h1>
+  <img *ngIf="news?.image" [src]="news.image" alt="news image">
+  <p>{{ news?.description }}</p>
+</div>
