@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
-import {Router } from '@angular/router';
-import {AlertController } from '@ionic/angular';
+import { Router } from '@angular/router';
+import { AlertController } from '@ionic/angular';
+import { AuthService } from '../shared/auth.service';
 
 @Component({
   selector: 'app-home',
@@ -12,7 +13,7 @@ export class HomePage {
   email: string = '';
   password: string = '';
 
-  constructor(private router: Router, private alertCtrl: AlertController) {}
+  constructor(private router: Router, private alertCtrl: AlertController, private authService: AuthService) {}
 
   async login() {
     // Buscar usuario por email en localStorage
@@ -33,6 +34,7 @@ export class HomePage {
     }
 
     if (foundUser.password === this.password) {
+      this.authService.login(this.email);
       this.router.navigate(['/dashboard']);
     } else {
       this.showAlert('Error', 'Contraseña incorrecta');
