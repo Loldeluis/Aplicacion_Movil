@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../shared/auth.service';
+import { AuthService } from '../../shared/auth.service';
 import { HttpClient } from '@angular/common/http';
 import { ModalController } from '@ionic/angular';
 import { NewsModalComponent } from './news-modal.component';

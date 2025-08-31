@@ -1,8 +1,3 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>Login</ion-title>
-  </ion-toolbar>
-</ion-header>
 
 <ion-content class="ion-padding">
   <div class="login-image-container">
@@ -10,18 +5,18 @@
   </div>
   <div class="login-form-container">
     <ion-item>
-      <ion-label position="floating">Correo</ion-label>
-      <ion-input type="email" [(ngModel)]="email" placeholder="Ingresa tu correo"></ion-input>
+      <ion-label position="floating">Email</ion-label>
+      <ion-input type="email" [(ngModel)]="email" placeholder="Ijane@gmail.com"></ion-input>
     </ion-item>
 
     <ion-item>
-      <ion-label position="floating">Contraseña</ion-label>
+      <ion-label position="floating">Password</ion-label>
       <ion-input type="password" [(ngModel)]="password" placeholder="*********"></ion-input>
     </ion-item>
 
     <p class="register-link">
-      ¿No tienes una cuenta?
-      <a routerLink="/register">Regístrate aquí</a>
+      ¿you don't have an account?
+      <a routerLink="/register">Register here</a>
     </p>
 
     <ion-button 
@@ -30,7 +25,7 @@
       [disabled]="!email || !password"
       class="login-btn">
       <ion-icon name="log-in-outline" slot="start"></ion-icon>
-      Iniciar Sesión
+      Sing in
     </ion-button>
   </div>
 </ion-content>
