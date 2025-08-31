@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 import { DashboardPageRoutingModule } from './dashboard-routing.module';
 import { DashboardPage } from './dashboard.page';
+import { NewsModalComponent } from './news-modal.component';
 import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
@@ -14,6 +15,6 @@ import { SharedModule } from '../shared/shared.module';
     DashboardPageRoutingModule,
     SharedModule
   ],
-  declarations: [DashboardPage]
+  declarations: [DashboardPage, NewsModalComponent]
 })
 export class DashboardPageModule {}

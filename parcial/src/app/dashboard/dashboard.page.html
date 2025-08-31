@@ -43,7 +43,7 @@
     </div>
     <div *ngIf="error" style="color:red; text-align:center;">{{ error }}</div>
     <ion-list *ngIf="!loading && !error">
-      <ion-item *ngFor="let article of news">
+      <ion-item *ngFor="let article of news" (click)="openNews(article)" button detail>
         <ion-thumbnail slot="start" *ngIf="article.urlToImage">
           <img [src]="article.urlToImage" alt="imagen noticia" />
         </ion-thumbnail>
@@ -51,9 +51,6 @@
           <h2>{{ article.title }}</h2>
           <p>{{ article.description }}</p>
           <small>{{ article.publishedAt | date:'short' }}</small>
-          <div>
-            <a [href]="article.url" target="_blank">Ver más</a>
-          </div>
         </ion-label>
       </ion-item>
     </ion-list>

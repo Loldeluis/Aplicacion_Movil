@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../shared/auth.service';
 import { HttpClient } from '@angular/common/http';
+import { ModalController } from '@ionic/angular';
+import { NewsModalComponent } from './news-modal.component';
 
 @Component({
   selector: 'app-dashboard',
@@ -25,7 +27,11 @@ export class DashboardPage implements OnInit {
   selectedCategory = this.categories[0].key;
   user: any = { username: '', lastname: '' };
 
-  constructor(private authService: AuthService, private http: HttpClient) { }
+  constructor(
+    private authService: AuthService,
+    private http: HttpClient,
+    private modalCtrl: ModalController
+  ) {}
 
   ngOnInit() {
     this.loadUser();
@@ -45,6 +51,14 @@ export class DashboardPage implements OnInit {
         }
       }
     }
+  }
+
+  async openNews(article: any) {
+    const modal = await this.modalCtrl.create({
+      component: NewsModalComponent,
+      componentProps: { article }
+    });
+    await modal.present();
   }
 
   fetchNews() {
