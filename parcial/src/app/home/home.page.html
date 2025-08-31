@@ -16,7 +16,11 @@
     <ion-input type="password" [(ngModel)]="password" placeholder="*********"></ion-input>
   </ion-item>
 
-  <!-- Botón deshabilitado si falta usuario o contraseña -->
+
+    <p>
+    ¿No tienes una cuenta?
+    <a routerLink="/register">Regístrate aquí</a>
+  </p>
 
   <ion-button 
     expand="block" 
@@ -25,7 +29,5 @@
     Iniciar Sesión
   </ion-button>
 
-  <ion-button expand="block" color="secondary" routerLink="/register">
-    Registrarse
-  </ion-button>
+
 </ion-content>
