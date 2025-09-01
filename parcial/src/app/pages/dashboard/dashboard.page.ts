@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../shared/auth.service';
 import { StorageUtil } from '../../shared/providers/storage/storage.util';
-import { HttpClient } from '@angular/common/http';
+import { ApiService } from '../../shared/providers/http/api.service';
 import { ModalController } from '@ionic/angular';
 import { NewsModalComponent } from './news-modal.component';
 
@@ -30,7 +30,7 @@ export class DashboardPage implements OnInit {
 
   constructor(
     private authService: AuthService,
-    private http: HttpClient,
+  private api: ApiService,
     private modalCtrl: ModalController
   ) {}
 
@@ -65,7 +65,7 @@ export class DashboardPage implements OnInit {
     this.news = [];
     this.error = '';
     const url = `https://newsapi.org/v2/everything?q=${this.selectedCategory}&from=2025-07-31&sortBy=publishedAt&apiKey=4e933b43792842b6be7c199ab7a2352d`;
-    this.http.get<any>(url)
+    this.api.getNews(this.selectedCategory)
       .subscribe({
         next: res => {
           this.news = res.articles || [];

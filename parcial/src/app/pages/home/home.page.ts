@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
 import { AuthService } from '../../shared/auth.service';
 import { StorageUtil } from '../../shared/providers/storage/storage.util';
+import { EncryptUtil } from '../../shared/providers/encrypt/encrypt.util';
 
 @Component({
   selector: 'app-home',
@@ -32,7 +33,7 @@ export class HomePage {
       return;
     }
 
-    if (foundUser.password === this.password) {
+  if (foundUser.password === EncryptUtil.hashPassword(this.password)) {
       this.authService.login(this.email);
       this.router.navigate(['/dashboard']);
     } else {

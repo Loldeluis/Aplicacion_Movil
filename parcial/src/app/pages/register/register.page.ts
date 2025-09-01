@@ -4,7 +4,7 @@ import { EncryptUtil } from '../../shared/providers/encrypt/encrypt.util';
 import { StorageUtil } from '../../shared/providers/storage/storage.util';
 import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
-import { HttpClient } from '@angular/common/http';
+import { ApiService } from '../../shared/providers/http/api.service';
 
 @Component({
   selector: 'app-register',
@@ -26,17 +26,16 @@ export class RegisterPage implements OnInit {
   constructor(
     private router: Router,
      private alertCtrl: AlertController,
-    private http: HttpClient
+  private api: ApiService
     ) { }
 
   ngOnInit() { //La api
    
-    this.http.get<any>('https://countriesnow.space/api/v0.1/countries/flag/unicode')
-      .subscribe(res => {
-        this.countries = res.data.sort((a: any, b: any) =>
-          a.name.localeCompare(b.name)
-        );
-      });
+    this.api.getCountries().subscribe(res => {
+      this.countries = res.data.sort((a: any, b: any) =>
+        a.name.localeCompare(b.name)
+      );
+    });
   }
 
     isFormValid(): boolean {
