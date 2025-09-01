@@ -28,12 +28,13 @@
             <ion-label>{{ cat.label }}</ion-label>
           </ion-item>
         </ion-list>
-        <div style="margin-top: 18px; text-align: center;">
-          <ion-button color="danger" expand="block" (click)="logout()">
-            <ion-icon name="log-out-outline" slot="start"></ion-icon>
-            Cerrar sesión
-          </ion-button>
-        </div>
+<div class="logout-btn">
+  <ion-button color="danger" expand="block" (click)="logout()">
+    <ion-icon name="log-out-outline" slot="start"></ion-icon>
+    <ion-label>Logout</ion-label>
+  </ion-button>
+</div>
+
       </ion-card-content>
     </ion-card>
 
