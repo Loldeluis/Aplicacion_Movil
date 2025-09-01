@@ -6,6 +6,7 @@ import { DashboardPageRoutingModule } from './dashboard-routing.module';
 import { DashboardPage } from './dashboard.page';
 import { NewsModalComponent } from './news-modal.component';
 import { SharedModule } from '../../shared/shared.module';
+import { UserFormComponent } from '../../components/user-form/user-form.component';
 import { ProfileModalComponent } from './profile-modal.component';
 
 @NgModule({
@@ -19,7 +20,9 @@ import { ProfileModalComponent } from './profile-modal.component';
   ],
   declarations: [
     DashboardPage,
-     NewsModalComponent,
-     ProfileModalComponent]
+    NewsModalComponent,
+    ProfileModalComponent,
+    UserFormComponent
+    ]
 })
 export class DashboardPageModule {}
