@@ -1,8 +1,8 @@
 
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
-
+import { ApiService } from 'src/app/shared/providers/http/api.service';
 @Component({
   standalone: false,
   selector: 'app-user-form',
@@ -29,10 +29,14 @@ import { IonicModule } from '@ionic/angular';
         <ion-input [(ngModel)]="user.email" name="email"></ion-input>
       </ion-item>
 
-      <ion-item>
-        <ion-label position="floating">País</ion-label>
-        <ion-input [(ngModel)]="user.country" name="country"></ion-input>
-      </ion-item>
+  <ion-item class="input-box">
+    <ion-label>Country</ion-label>
+    <ion-select [(ngModel)]="country" interface="popover" placeholder="Select country">
+      <ion-select-option *ngFor="let c of countries" [value]="c.name">
+        <span class="flag">{{ c.unicodeFlag }}</span> {{ c.name }}
+      </ion-select-option>
+    </ion-select>
+  </ion-item>
 
       <ion-item>
         <ion-label position="floating">Contraseña</ion-label>
@@ -40,7 +44,7 @@ import { IonicModule } from '@ionic/angular';
       </ion-item>
 
       <ion-item>
-        <ion-label position="floating">Confirmar Contraseña</ion-label>
+        <ion-label position="floating">Confirm password</ion-label>
         <ion-input [(ngModel)]="user.confirmPassword" type="password" name="confirmPassword"></ion-input>
       </ion-item>
     </form>
@@ -48,4 +52,32 @@ import { IonicModule } from '@ionic/angular';
 })
 export class UserFormComponent {
   @Input() user: any;
+
+  countries: any[] = [];
+  country: string = '';
+  
+
+  constructor(
+    private api: ApiService
+  ) {}
+
+ngOnInit() {
+   if (this.user) {
+      this.country = this.user.country?.name || '';
+
+    }
+
+    this.loadCountries();
+  }
+
+    loadCountries() {
+    this.api.getCountries().subscribe((res) => {
+      if (res && res.data) {
+        this.countries = res.data; // [{name: 'Colombia', unicodeFlag: '🇨🇴'}, ...]
+      }
+    });
+  }
+
+
+
 }
