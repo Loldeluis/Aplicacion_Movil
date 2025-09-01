@@ -13,12 +13,16 @@
   <ion-content [fullscreen]="true">
     <ion-card *ngIf="showProfile" class="profile-card">
       <ion-card-header>
-        <ion-card-title>{{ user.name }} {{ user.lastName }}</ion-card-title>
-        <ion-chip color="success" style="margin-top: 8px;">
-          <ion-label>Online</ion-label>
-          <ion-icon name="ellipse" color="success"></ion-icon>
-        </ion-chip>
-      </ion-card-header>
+    <!-- Aquí el nombre será un botón que abre el modal -->
+    <ion-card-title (click)="openProfileModal()">
+      {{ user.name }} {{ user.lastName }}
+    </ion-card-title>
+    <ion-chip color="success" style="margin-top: 8px;">
+      <ion-label>Online</ion-label>
+      <ion-icon name="ellipse" color="success"></ion-icon>
+    </ion-chip>
+  </ion-card-header>
+
       <ion-card-content>
         <ion-list>
           <ion-list-header>

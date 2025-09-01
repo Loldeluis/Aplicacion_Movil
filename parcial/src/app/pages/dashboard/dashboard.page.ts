@@ -4,7 +4,7 @@ import { StorageUtil } from '../../shared/providers/storage/storage.util';
 import { ApiService } from '../../shared/providers/http/api.service';
 import { ModalController } from '@ionic/angular';
 import { NewsModalComponent } from './news-modal.component';
-
+import { ProfileModalComponent } from './profile-modal.component';
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.page.html',
@@ -51,6 +51,22 @@ export class DashboardPage implements OnInit {
       }
     }
   }
+
+async openProfileModal() {
+  const modal = await this.modalCtrl.create({
+    component: ProfileModalComponent,
+    componentProps: { user: { ...this.user } } // enviamos copia del usuario
+  });
+
+  modal.onDidDismiss().then(result => {
+    if (result.data) {
+      this.user = result.data; // actualizamos usuario si se guardó
+    }
+  });
+
+  return await modal.present();
+}
+
 
   async openNews(article: any) {
     const modal = await this.modalCtrl.create({
