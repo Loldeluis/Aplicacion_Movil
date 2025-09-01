@@ -13,7 +13,7 @@
   <ion-content [fullscreen]="true">
     <ion-card *ngIf="showProfile" class="profile-card">
       <ion-card-header>
-        <ion-card-title>{{ user.username }} {{ user.lastname }}</ion-card-title>
+        <ion-card-title>{{ user.name }} {{ user.lastName }}</ion-card-title>
         <ion-chip color="success" style="margin-top: 8px;">
           <ion-label>Online</ion-label>
           <ion-icon name="ellipse" color="success"></ion-icon>
@@ -28,13 +28,12 @@
             <ion-label>{{ cat.label }}</ion-label>
           </ion-item>
         </ion-list>
-<div class="logout-btn">
-  <ion-button color="danger" expand="block" (click)="logout()">
-    <ion-icon name="log-out-outline" slot="start"></ion-icon>
-    <ion-label>Logout</ion-label>
-  </ion-button>
-</div>
-
+        <div style="margin-top: 18px; text-align: center;">
+          <ion-button color="danger" expand="block" (click)="logout()">
+            <ion-icon name="log-out-outline" slot="start"></ion-icon>
+            Logout
+          </ion-button>
+        </div>
       </ion-card-content>
     </ion-card>
 
