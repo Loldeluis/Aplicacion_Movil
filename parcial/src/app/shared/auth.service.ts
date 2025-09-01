@@ -1,5 +1,7 @@
+
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
+import { StorageUtil } from './providers/storage/storage.util';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
@@ -7,19 +9,19 @@ export class AuthService {
 
   isLogged(): boolean {
     // Puedes mejorar esto usando JWT o un token real
-    return !!localStorage.getItem('loggedUserEmail');
+  return !!StorageUtil.getItem('loggedUserEmail');
   }
 
   login(email: string) {
-    localStorage.setItem('loggedUserEmail', email);
+  StorageUtil.setItem('loggedUserEmail', email);
   }
 
   logout() {
-    localStorage.removeItem('loggedUserEmail');
+  StorageUtil.removeItem('loggedUserEmail');
     this.router.navigate(['/home']);
   }
 
   getLoggedUserEmail(): string | null {
-    return localStorage.getItem('loggedUserEmail');
+  return StorageUtil.getItem('loggedUserEmail');
   }
 }

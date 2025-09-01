@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../shared/auth.service';
+import { StorageUtil } from '../../shared/providers/storage/storage.util';
 import { HttpClient } from '@angular/common/http';
 import { ModalController } from '@ionic/angular';
 import { NewsModalComponent } from './news-modal.component';
@@ -41,11 +42,9 @@ export class DashboardPage implements OnInit {
   loadUser() {
     const email = this.authService.getLoggedUserEmail();
     if (email) {
-      for (let i = 0; i < localStorage.length; i++) {
-        const key = localStorage.key(i);
-        if (!key) continue;
-        const userData = JSON.parse(localStorage.getItem(key)!);
-        if (userData.email === email) {
+      for (const key of StorageUtil.getAllKeys()) {
+        const userData = StorageUtil.getItem<any>(key);
+        if (userData && userData.email === email) {
           this.user = userData;
           break;
         }

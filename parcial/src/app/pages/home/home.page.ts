@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
 import { AuthService } from '../../shared/auth.service';
+import { StorageUtil } from '../../shared/providers/storage/storage.util';
 
 @Component({
   selector: 'app-home',
@@ -16,13 +17,11 @@ export class HomePage {
   constructor(private router: Router, private alertCtrl: AlertController, private authService: AuthService) {}
 
   async login() {
-    // Buscar usuario por email en localStorage
+    // Buscar usuario por email en StorageUtil
     let foundUser = null;
-    for (let i = 0; i < localStorage.length; i++) {
-      const key = localStorage.key(i);
-      if (!key) continue;
-      const userData = JSON.parse(localStorage.getItem(key)!);
-      if (userData.email === this.email) {
+    for (const key of StorageUtil.getAllKeys()) {
+      const userData = StorageUtil.getItem<any>(key);
+      if (userData && userData.email === this.email) {
         foundUser = userData;
         break;
       }

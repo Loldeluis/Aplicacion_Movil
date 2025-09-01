@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { v4 as uuidv4 } from 'uuid';
-import * as CryptoJS from 'crypto-js';
+import { EncryptUtil } from '../../shared/providers/encrypt/encrypt.util';
+import { StorageUtil } from '../../shared/providers/storage/storage.util';
 import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
 import { HttpClient } from '@angular/common/http';
@@ -65,12 +66,10 @@ export class RegisterPage implements OnInit {
 
     // Validar que no exista un usuario con el mismo email
     let emailExists = false;
-    for (let i = 0; i < localStorage.length; i++) {
-      const key = localStorage.key(i);
-      if (!key) continue;
+    for (const key of StorageUtil.getAllKeys()) {
       let userData;
       try {
-        userData = JSON.parse(localStorage.getItem(key)!);
+        userData = StorageUtil.getItem<any>(key);
       } catch {
         continue; // Si no es JSON válido, ignora esta clave
       }
@@ -93,14 +92,14 @@ export class RegisterPage implements OnInit {
       name: this.username,
       lastName: this.lastname,
       email: this.email,
-      password: CryptoJS.SHA256(this.password).toString(CryptoJS.enc.Hex),
+  password: EncryptUtil.hashPassword(this.password),
       country: selectedCountry
         ? { id: selectedCountry.name, value: `${selectedCountry.unicodeFlag} ${selectedCountry.name}` }
         : { id: this.country, value: this.country }
     };
 
     // Guardar usando el email como clave
-    localStorage.setItem(this.email, JSON.stringify(userData));
+  StorageUtil.setItem(this.email, userData);
     this.showAlert('Éxito', 'Usuario registrado correctamente');
     this.router.navigate(['/home']);
   }
