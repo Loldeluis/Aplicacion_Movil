@@ -31,7 +31,7 @@ import { ApiService } from 'src/app/shared/providers/http/api.service';
 
   <ion-item class="input-box">
     <ion-label>Country</ion-label>
-<ion-select [(ngModel)]="user.country.value" (ionChange)="onCountryChange($event)" interface="popover" placeholder="Select country">
+<ion-select [(ngModel)]="selectedCountryName" (ionChange)="onCountryChange($event)" interface="popover" placeholder="Select country">
   <ion-select-option *ngFor="let c of countries" [value]="c.name">
     <span class="flag">{{ c.unicodeFlag }}</span> {{ c.name }}
   </ion-select-option>
@@ -54,6 +54,7 @@ export class UserFormComponent {
   @Input() user: any;
 
   countries: any[] = [];
+  selectedCountryName: string = '';
 
   
 
@@ -62,33 +63,44 @@ export class UserFormComponent {
   ) {}
 
 ngOnInit() {
-  this.loadCountries();
-
-    // Inicializar el country del usuario
-    if (this.user?.country) {
-      this.user.country = this.user.country.value ? this.user.country : { id: '', value: '' };
-    } else {
-      this.user.country = { id: '', value: '' };
+  // si ya viene con bandera desde localstorage, úsala
+    if (this.user?.country?.value) {
+      this.selectedCountryName = this.user.country.value;
     }
+    this.loadCountries();
   }
 
-loadCountries() {
+ loadCountries() {
     this.api.getCountries().subscribe(res => {
       this.countries = res.data.sort((a: any, b: any) => a.name.localeCompare(b.name));
 
-      // Si el usuario ya tiene un país, asignarlo para mostrar
+      // intentar hacer match con lo guardado en localStorage
       if (this.user?.country?.value) {
-        const selected = this.countries.find(c => c.name === this.user.country.value);
-        if (selected) this.user.country = { id: selected.id, value: selected.name, unicodeFlag: selected.unicodeFlag };
+        const selected = this.countries.find(c => 
+          c.name === this.user.country.value || 
+          this.user.country.value.includes(c.name) // por si venía con bandera guardada "🇲🇽 México"
+        );
+        if (selected) {
+          this.user.country = { 
+            id: selected.id, 
+            value: selected.name, 
+            unicodeFlag: selected.unicodeFlag 
+          };
+          this.selectedCountryName = selected.name;
+        }
       }
     });
   }
 
    // Método que se llama automáticamente cuando cambias el select
-  onCountryChange(ev: any) {
+ onCountryChange(ev: any) {
     const selected = this.countries.find(c => c.name === ev.detail.value);
     if (selected) {
-      this.user.country = { id: selected.id, value: selected.name, unicodeFlag: selected.unicodeFlag };
+      this.user.country = { 
+        id: selected.id, 
+        value: selected.name, 
+        unicodeFlag: selected.unicodeFlag 
+      };
     }
   }
 }

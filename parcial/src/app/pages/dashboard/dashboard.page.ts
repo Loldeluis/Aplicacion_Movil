@@ -75,7 +75,7 @@ user: any = { id:'', name:'', lastName:'', email:'', password:'', country: { id:
     const oldEmail = this.user.email;
 
 
-    
+
     // fusionar cambios
     const nextUser = { ...this.user, ...updated };
 
@@ -146,7 +146,6 @@ user: any = { id:'', name:'', lastName:'', email:'', password:'', country: { id:
     this.loading = true;
     this.news = [];
     this.error = '';
-    const url = `https://newsapi.org/v2/everything?q=${this.selectedCategory}&from=2025-07-31&sortBy=publishedAt&apiKey=4e933b43792842b6be7c199ab7a2352d`;
     this.api.getNews(this.selectedCategory)
       .subscribe({
         next: res => {

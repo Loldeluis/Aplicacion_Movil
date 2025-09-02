@@ -49,11 +49,11 @@ export class RegisterPage implements OnInit {
     );
   }
 
-    validateEmail(email: string): boolean {
-    // Solo correos Gmail
-    const regex = /^[a-zA-Z0-9._%+-]+@gmail\.com$/;
-    return regex.test(email);
-  }
+validateEmail(email: string): boolean {
+  // Acepta cualquier correo que tenga @ y termine en .com
+  const regex = /^[^\s@]+@[^\s@]+\.com$/;
+  return regex.test(email);
+}
 
 
 
