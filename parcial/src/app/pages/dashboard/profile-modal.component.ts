@@ -8,7 +8,7 @@ import { ToastController, ModalController } from '@ionic/angular';
   template: `
     <ion-header>
       <ion-toolbar color="primary">
-        <ion-title>Editar Perfil</ion-title>
+        <ion-title>Edit profile</ion-title>
         <ion-buttons slot="end">
           <ion-button (click)="closeModal()">
             <ion-icon name="close"></ion-icon>
@@ -22,7 +22,7 @@ import { ToastController, ModalController } from '@ionic/angular';
 
       <div style="margin-top: 20px;">
         <ion-button expand="block" color="success" (click)="saveChanges()">
-          Guardar Cambios
+          Save changes
         </ion-button>
       </div>
     </ion-content>
