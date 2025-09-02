@@ -15,17 +15,17 @@ import { ApiService } from 'src/app/shared/providers/http/api.service';
   </ion-item>
   
       <ion-item>
-        <ion-label position="floating">Nombre</ion-label>
+        <ion-label position="floating">Name</ion-label>
         <ion-input [(ngModel)]="user.name" name="username"></ion-input>
       </ion-item>
 
       <ion-item>
-        <ion-label position="floating">Apellido</ion-label>
+        <ion-label position="floating">Last Name</ion-label>
         <ion-input [(ngModel)]="user.lastName" name="lastname"></ion-input>
       </ion-item>
 
       <ion-item>
-        <ion-label position="floating">Correo</ion-label>
+        <ion-label position="floating">Email</ion-label>
         <ion-input [(ngModel)]="user.email" name="email"></ion-input>
       </ion-item>
 
@@ -38,15 +38,36 @@ import { ApiService } from 'src/app/shared/providers/http/api.service';
 </ion-select>
   </ion-item>
 
-      <ion-item>
-        <ion-label position="floating">Contraseña</ion-label>
-        <ion-input [(ngModel)]="user.password" type="password" name="password"></ion-input>
-      </ion-item>
+<ion-item>
+  <ion-label position="floating">Password</ion-label>
+  <ion-input 
+    [(ngModel)]="user.password" 
+    [type]="showPassword ? 'text' : 'password'" 
+    name="password">
+  </ion-input>
+  <ion-icon 
+    slot="end" 
+    [name]="showPassword ? 'eye-off-outline' : 'eye-outline'" 
+    (click)="togglePassword()" 
+    style="cursor: pointer;">
+  </ion-icon>
+</ion-item>
 
-      <ion-item>
-        <ion-label position="floating">Confirm password</ion-label>
-        <ion-input [(ngModel)]="user.confirmPassword" type="password" name="confirmPassword"></ion-input>
-      </ion-item>
+<ion-item>
+  <ion-label position="floating">Confirm password</ion-label>
+  <ion-input 
+    [(ngModel)]="user.confirmPassword" 
+    [type]="showConfirmPassword ? 'text' : 'password'" 
+    name="confirmPassword">
+  </ion-input>
+  <ion-icon 
+    slot="end" 
+    [name]="showConfirmPassword ? 'eye-off-outline' : 'eye-outline'" 
+    (click)="toggleConfirmPassword()" 
+    style="cursor: pointer;">
+  </ion-icon>
+</ion-item>
+
     </form>
   `
 })
@@ -55,7 +76,8 @@ export class UserFormComponent {
 
   countries: any[] = [];
   selectedCountryName: string = '';
-
+  showPassword: boolean = false;
+showConfirmPassword: boolean = false;
   
 
   constructor(
@@ -91,6 +113,14 @@ ngOnInit() {
       }
     });
   }
+
+  togglePassword() {
+  this.showPassword = !this.showPassword;
+}
+
+toggleConfirmPassword() {
+  this.showConfirmPassword = !this.showConfirmPassword;
+}
 
    // Método que se llama automáticamente cuando cambias el select
  onCountryChange(ev: any) {

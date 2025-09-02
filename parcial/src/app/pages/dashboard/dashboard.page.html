@@ -26,7 +26,7 @@
       <ion-card-content>
         <ion-list>
           <ion-list-header>
-            Categorías
+            Categories
           </ion-list-header>
           <ion-item *ngFor="let cat of categories" (click)="selectCategory(cat.key)" [color]="selectedCategory === cat.key ? 'primary' : ''">
             <ion-label>{{ cat.label }}</ion-label>
@@ -43,7 +43,7 @@
 
     <div *ngIf="loading" style="text-align:center; margin-top:2em;">
       <ion-spinner name="crescent"></ion-spinner>
-      <p>Cargando noticias...</p>
+      <p>Loading News...</p>
     </div>
     <div *ngIf="error" style="color:red; text-align:center;">{{ error }}</div>
     <ion-list *ngIf="!loading && !error">

@@ -19,12 +19,12 @@ export class DashboardPage implements OnInit {
   showProfile = false;
   categories = [
     { key: 'tesla', label: 'Tesla' },
-    { key: 'technology', label: 'Tecnología' },
-    { key: 'sports', label: 'Deportes' },
-    { key: 'business', label: 'Negocios' },
-    { key: 'science', label: 'Ciencia' },
-    { key: 'health', label: 'Salud' },
-    { key: 'entertainment', label: 'Entretenimiento' }
+    { key: 'technology', label: 'Technology' },
+    { key: 'sports', label: 'Sports' },
+    { key: 'business', label: 'Business' },
+    { key: 'science', label: 'Science' },
+    { key: 'health', label: 'Health' },
+    { key: 'entertainment', label: 'Entertaiment' }
   ];
   selectedCategory = this.categories[0].key;
 user: any = { id:'', name:'', lastName:'', email:'', password:'', country: { id:'', value:'' } };

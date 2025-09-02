@@ -14,7 +14,7 @@ getNews(category: string): Observable<any> {
   // Tomamos la fecha actual
   const today = new Date();
   
-  // Si quieres, por ejemplo, restarle 1 día para que siempre busque noticias recientes
+  //se le resta un 1 al dia de hoy
   const fromDate = new Date();
   fromDate.setDate(today.getDate() - 1);
 
