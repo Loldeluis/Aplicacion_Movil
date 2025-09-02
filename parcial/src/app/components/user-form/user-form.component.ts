@@ -31,11 +31,11 @@ import { ApiService } from 'src/app/shared/providers/http/api.service';
 
   <ion-item class="input-box">
     <ion-label>Country</ion-label>
-    <ion-select [(ngModel)]="country" interface="popover" placeholder="Select country">
-      <ion-select-option *ngFor="let c of countries" [value]="c.name">
-        <span class="flag">{{ c.unicodeFlag }}</span> {{ c.name }}
-      </ion-select-option>
-    </ion-select>
+<ion-select [(ngModel)]="user.country.value" (ionChange)="onCountryChange($event)" interface="popover" placeholder="Select country">
+  <ion-select-option *ngFor="let c of countries" [value]="c.name">
+    <span class="flag">{{ c.unicodeFlag }}</span> {{ c.name }}
+  </ion-select-option>
+</ion-select>
   </ion-item>
 
       <ion-item>
@@ -54,7 +54,7 @@ export class UserFormComponent {
   @Input() user: any;
 
   countries: any[] = [];
-  country: string = '';
+
   
 
   constructor(
@@ -62,22 +62,34 @@ export class UserFormComponent {
   ) {}
 
 ngOnInit() {
-   if (this.user) {
-      this.country = this.user.country?.name || '';
+  this.loadCountries();
 
+    // Inicializar el country del usuario
+    if (this.user?.country) {
+      this.user.country = this.user.country.value ? this.user.country : { id: '', value: '' };
+    } else {
+      this.user.country = { id: '', value: '' };
     }
-
-    this.loadCountries();
   }
 
-    loadCountries() {
-    this.api.getCountries().subscribe((res) => {
-      if (res && res.data) {
-        this.countries = res.data; // [{name: 'Colombia', unicodeFlag: '🇨🇴'}, ...]
+loadCountries() {
+    this.api.getCountries().subscribe(res => {
+      this.countries = res.data.sort((a: any, b: any) => a.name.localeCompare(b.name));
+
+      // Si el usuario ya tiene un país, asignarlo para mostrar
+      if (this.user?.country?.value) {
+        const selected = this.countries.find(c => c.name === this.user.country.value);
+        if (selected) this.user.country = { id: selected.id, value: selected.name, unicodeFlag: selected.unicodeFlag };
       }
     });
   }
 
-
-
+   // Método que se llama automáticamente cuando cambias el select
+  onCountryChange(ev: any) {
+    const selected = this.countries.find(c => c.name === ev.detail.value);
+    if (selected) {
+      this.user.country = { id: selected.id, value: selected.name, unicodeFlag: selected.unicodeFlag };
+    }
+  }
 }
+

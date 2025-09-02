@@ -40,31 +40,20 @@ export class ProfileModalComponent {
     this.modalCtrl.dismiss();
   }
 
-   async saveChanges() {
-    if (this.user.password !== this.user.confirmPassword) {
-      // Mostrar mensaje de error si las contraseñas no coinciden
-      const toast = await this.toastCtrl.create({
-        message: "Passwords didn't match",
-        duration: 2000,
-        color: 'danger',
-        position: 'top'
-      });
-      await toast.present();
-      return; // detenemos el flujo
-    }
-
-      console.log('Usuario actualizado:', this.user);
-
-         const toast = await this.toastCtrl.create({
-      message: 'User updated',
+async saveChanges() {
+  if (this.user.password && this.user.password !== this.user.confirmPassword) {
+    const toast = await this.toastCtrl.create({
+      message: "Passwords didn't match",
       duration: 2000,
-      color: 'success',
+      color: 'danger',
       position: 'top'
     });
     await toast.present();
-
-      // Cerramos modal enviando datos
-    this.modalCtrl.dismiss(this.user);
+    return;
   }
+
+  this.modalCtrl.dismiss(this.user); // Envía todo el objeto actualizado, incluyendo country
+}
+
   
 }

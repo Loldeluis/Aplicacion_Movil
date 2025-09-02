@@ -74,13 +74,22 @@ user: any = { id:'', name:'', lastName:'', email:'', password:'', country: { id:
   private persistUpdatedUser(updated: any) {
     const oldEmail = this.user.email;
 
+
+    
     // fusionar cambios
     const nextUser = { ...this.user, ...updated };
 
-    // normalizar country (por si viene string)
-    if (typeof updated.country === 'string') {
-      nextUser.country = { id: updated.country, value: updated.country };
-    }
+
+
+    // normalizar country 
+ if (updated.country && typeof updated.country === 'object') {
+    nextUser.country = updated.country; // ya tiene id, value, unicodeFlag
+  } else if (typeof updated.country === 'string') {
+    nextUser.country = { id: updated.country, value: updated.country, unicodeFlag: '' };
+  } else {
+    nextUser.country = { id: '', value: '', unicodeFlag: '' };
+  }
+
 
     // contraseña: si se proporcionó y coincide, hasheamos; si no, mantenemos la anterior
     if (updated.password && updated.password.trim()) {
